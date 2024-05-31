@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Product from "./pages/Product";
 import Pricing from "./pages/Pricing";
@@ -9,7 +9,8 @@ import AppLayout from "./pages/AppLayout";
 import Login from "./pages/Login";
 import CityList from "./Components/CityList";
 import CountryList from "./Components/CountryList";
-
+import City from "./Components/City";
+import Form from "./Components/Form";
 const BASE_URL = "http://localhost:3001/";
 // import PageNav from "./Components/PageNav";
 function App() {
@@ -40,16 +41,14 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="*" element={<PageNotFound />} />
           <Route path="app" element={<AppLayout />}>
-            <Route
-              index
-              element={<CityList cities={cities} isLoading={isLoading} />}
-            />
+            <Route index element={<Navigate replace to="cities" />} />
             <Route
               path="cities"
               element={<CityList cities={cities} isLoading={isLoading} />}
             />
+            <Route path="cities/:id" element={<City />} />
             <Route path="countries" element={<CountryList cities={cities} />} />
-            <Route path="form" element={<p>Form</p>} />
+            <Route path="form" element={<Form />} />
           </Route>
           <Route path="/login" element={<Login />} />
         </Routes>
